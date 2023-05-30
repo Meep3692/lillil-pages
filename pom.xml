@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <name>lillil-pages</name>
-    <url>https://oracle.awoo.ca/lillil-pages</url>
+    <url>https://tomcat.awoo.ca/lillil-pages</url>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>

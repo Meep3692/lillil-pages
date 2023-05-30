@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>lillil</name>
+    <name>lillil-pages</name>
     <url>https://oracle.awoo.ca/lillil-pages</url>
 
     <properties>

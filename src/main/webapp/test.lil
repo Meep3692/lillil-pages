@@ -1,0 +1,16 @@
+(def-element custom-elem 
+             (div {:style (string-append "color: " (:color attrs) ";")} content))
+
+
+(html {}
+      (head {}
+            (title {} "Test"))
+      (body {}
+            (h1 {} "Hello World!")
+            (custom-elem {:color "red"} "This is a custom element!")
+            (table {:style "border: 2px outset #AAA; background: #AAA;"}
+                   (map (lambda (key val)
+                          (tr {}
+                              (td {:style "border: 2px inset #EEE; background: #EEE"} key ":")
+                              (td {:style "border: 2px inset #EEE; background: #EEE"} val)))
+                        headers))))

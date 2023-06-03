@@ -14,9 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import ca.awoo.lillil.CoreEnvironment;
-import ca.awoo.lillil.Environment;
-import ca.awoo.lillil.Evaluator;
+import ca.awoo.lillil.Lillil;
 import ca.awoo.lillil.LillilRuntimeException;
 import ca.awoo.lillil.sexpr.Parser.ParseException;
 import ca.awoo.lillil.sexpr.Tokenizer.TokenizerException;
@@ -51,11 +49,12 @@ public class LillilServlet extends HttpServlet {
             for(String header : java.util.Collections.list(request.getHeaderNames())) {
                 headers.put(header, request.getHeader(header));
             }
-            Environment env = new HtmlEnvironment(new CoreEnvironment(null));
-            env.bind("headers", headers);
-            env.bind("method", request.getMethod());
-            Evaluator eval = new Evaluator();
-            List<Object> results = eval.evalAll(sb.toString(), env);
+            //Environment env = new HtmlEnvironment(new CoreEnvironment(null));
+            Lillil lillil = new Lillil(new HtmlEnvironment(null));
+            lillil.useCoreModule();
+            lillil.bindPersist("headers", headers);
+            lillil.bindPersist("method", request.getMethod());
+            List<Object> results = lillil.evalAll(sb.toString());
             for(Object o : results) {
                 if(o != null)
                     out.println(o);

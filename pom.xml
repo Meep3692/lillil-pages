@@ -35,7 +35,7 @@
         <dependency>
             <groupId>com.github.meep3692</groupId>
             <artifactId>lillil</artifactId>
-            <version>main-SNAPSHOT</version>
+            <version>a0.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>

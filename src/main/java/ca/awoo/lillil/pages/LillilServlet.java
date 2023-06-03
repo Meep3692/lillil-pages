@@ -31,7 +31,16 @@ public class LillilServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html");
+
+        //Modules directory, don't let them access it
+        if(request.getServletPath().startsWith("/modules")){
+            response.sendError(403, "Forbidden");
+            return;
+        }
+
         PrintWriter out = response.getWriter();
+
+        //Get file contents
         InputStream is = this.getServletContext().getResourceAsStream(request.getServletPath());
         if (is == null) {
             response.sendError(404, "File not found");
@@ -43,17 +52,23 @@ public class LillilServlet extends HttpServlet {
             sb.append(line);
             sb.append("\n");
         }
+
         try{
             //Get request headers
             Map<String, String> headers = new HashMap<String, String>();
             for(String header : java.util.Collections.list(request.getHeaderNames())) {
                 headers.put(header, request.getHeader(header));
             }
-            //Environment env = new HtmlEnvironment(new CoreEnvironment(null));
-            Lillil lillil = new Lillil(new HtmlEnvironment(null));
+            //Create our lillil instance
+            Lillil lillil = new Lillil();
             lillil.useCoreModule();
+            lillil.useNativeModule(new HtmlNativeModuleLoader(lillil));
+            PagesModuleLoader loader = new PagesModuleLoader(lillil, this);
+            System.out.println(loader.loadModule("module"));
+            lillil.addModuleLoader(loader);
             lillil.bindPersist("headers", headers);
             lillil.bindPersist("method", request.getMethod());
+            //Eval and print results
             List<Object> results = lillil.evalAll(sb.toString());
             for(Object o : results) {
                 if(o != null)

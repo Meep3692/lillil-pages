@@ -19,10 +19,8 @@ public abstract class ElementFunction implements Function {
         if(args[0] instanceof Map){
             Map<Object,Object> genericMap = (Map<Object,Object>) args[0];
             for(Entry<Object,Object> entry : genericMap.entrySet()){
-                if(entry.getKey() instanceof String && entry.getValue() instanceof String){
+                if(entry.getKey() instanceof String){
                     attrs.put(entry.getKey().toString(), entry.getValue().toString());
-                } else{
-                    throw new LillilRuntimeException("element: attributes values must be strings, got: " + entry.getValue().getClass().getName());
                 }
             }
             List<Object> content = new ArrayList<Object>();

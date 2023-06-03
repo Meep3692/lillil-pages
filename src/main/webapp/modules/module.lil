@@ -1,0 +1,4 @@
+(def-element elem-in-module
+             (div {:style (string-append "border: solid black " (:bwidth attrs) "px;")} content))
+
+{:elem-in-module elem-in-module }

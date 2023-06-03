@@ -1,13 +1,12 @@
 package ca.awoo.lillil.pages;
 
-import ca.awoo.lillil.Environment;
+import ca.awoo.lillil.Lillil;
+import ca.awoo.lillil.module.NativeModuleLoader;
 
-/**
- * An environment that contains all the html elements.
- */
-public class HtmlEnvironment extends Environment{
-    public HtmlEnvironment(Environment parent) {
-        super(parent);
+public class HtmlNativeModuleLoader extends NativeModuleLoader {
+
+    public HtmlNativeModuleLoader(Lillil lillil) {
+        super(lillil, "html");
         bind("def-element", new DefElementMacro());
 
         //Main root
@@ -178,4 +177,9 @@ public class HtmlEnvironment extends Environment{
         bind("tt", new BasicElementFunction("tt"));
         bind("xmp", new BasicElementFunction("xmp"));
     }
+
+    private void bind(String name, Object value) {
+        module.put(name, value);
+    }
+    
 }

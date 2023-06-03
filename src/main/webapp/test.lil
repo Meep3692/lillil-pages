@@ -1,3 +1,5 @@
+(use-import "module")
+
 (def-element custom-elem 
              (div {:style (string-append "color: " (:color attrs) ";")} content))
 
@@ -8,6 +10,7 @@
       (body {}
             (h1 {} "Hello World!")
             (custom-elem {:color "red"} "This is a custom element!")
+            (elem-in-module {:bwidth 5} "This is an element from a module!")
             (table {:style "border: 2px outset #AAA; background: #AAA;"}
                    (map (lambda (key val)
                           (tr {}
